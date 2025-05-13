@@ -4,29 +4,22 @@ import { z } from "zod";
 
 // Create an MCP server
 const server = new McpServer({
-  name: "Demo",
+  name: "Aviation Weather",
+  description: "A server that provides aviation weather information.",
   version: "1.0.0"
 });
 
-// Add an addition tool
-server.tool("add",
-  { a: z.number(), b: z.number() },
-  async ({ a, b }) => ({
-    content: [{ type: "text", text: String(a + b) }]
-  })
-);
-
 server.tool("get_aviation_weather",
-  { location: z.string() },
+  "A tool to get aviation weather information in a METAR format",
+  { location: z.string().describe("The ICAO code of the airport") },
   async ({ location }) => {
     // Simulate a weather API call
     const weatherApiResponse = await fetch(`https://avwx.fekke.com/metar/${location}`);
     const weatherData = await weatherApiResponse.json();
-    const raw_weather = weatherData[0].raw_text;
     return {
       content: [{
         type: "text",
-        text: raw_weather
+        text: JSON.stringify(weatherData[0], null, 2)
       }]
     };
   }
