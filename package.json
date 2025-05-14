@@ -5,13 +5,17 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "inspector": "npx @modelcontextprotocol/inspector node index.js"
+    "inspector": "npx @modelcontextprotocol/inspector node index.js",
+    "langchain": "node langchain.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@langchain/langgraph": "^0.2.72",
+    "@langchain/mcp-adapters": "^0.4.5",
+    "@langchain/openai": "^0.5.10",
     "@modelcontextprotocol/sdk": "^1.11.2"
   }
 }
