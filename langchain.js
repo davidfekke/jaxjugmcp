@@ -32,7 +32,7 @@ try {
   // Create and run the agent
   const agent = createReactAgent({ llm: model, tools });
   const agentResponse = await agent.invoke({
-    messages: [{ role: "user", content: "What is aviation weather for KCRG" }],
+    messages: [{ role: "user", content: "What is aviation weather for KJAX" }],
   });
   console.log(agentResponse);
 } catch (e) {
