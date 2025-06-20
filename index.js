@@ -11,10 +11,26 @@ const server = new McpServer({
 
 server.tool("get_aviation_weather",
   "A tool to get aviation weather information in a METAR format",
-  { location: z.string().describe("The ICAO code of the airport") },
+  { location: z.string().length(4).describe("The ICAO code of the airport") },
   async ({ location }) => {
     // Simulate a weather API call
     const weatherApiResponse = await fetch(`https://avwx.fekke.com/metar/${location}`);
+    const weatherData = await weatherApiResponse.json();
+    return {
+      content: [{
+        type: "text",
+        text: JSON.stringify(weatherData[0], null, 2)
+      }]
+    };
+  }
+);
+
+server.tool("get_aviation_weather_forecast",
+  "A tool to get aviation weather forecast information in a TAR (Terminal Area Forecast) format",
+  { location: z.string().length(4).describe("The ICAO code of the airport") },
+  async ({ location }) => {
+    // Simulate a weather API call
+    const weatherApiResponse = await fetch(`https://avwx.fekke.com/taf/${location}`);
     const weatherData = await weatherApiResponse.json();
     return {
       content: [{
